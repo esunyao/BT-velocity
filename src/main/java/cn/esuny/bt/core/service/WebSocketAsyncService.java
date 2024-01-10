@@ -5,6 +5,15 @@ import cn.esuny.bt.config.LoadConfig;
 
 public class WebSocketAsyncService extends Thread {
     private static final LoadConfig loadConfig = new LoadConfig();
+    public static boolean status = true;
+
+    public void setStatus(boolean status) {
+        WebSocketAsyncService.status = status;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
 
     @Override
     public void run() {
@@ -20,6 +29,11 @@ public class WebSocketAsyncService extends Thread {
                 throw new RuntimeException(e);
             }
             try {
+                if(!status){
+//                    BT.logger.error("¡ìcBTWebsocketÒÑ¹Ø±Õ");
+//                    WebSocketService.client.close();
+                    continue;
+                }
                 if (!WebSocketService.client.isOpen()) {
                     WebSocketService.main();
 //                    BT.logger.info("Å¶Äã¸ÉÂï"+String.valueOf(WebSocketService.client.isOpen()));

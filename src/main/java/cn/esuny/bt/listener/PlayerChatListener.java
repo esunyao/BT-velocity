@@ -83,7 +83,8 @@ public class PlayerChatListener {
                 // 向所有服务器发送处理后的玩家消息
 //                proxyServer.get().forEach(registeredServer -> registeredServer.sendMessage(Component.text(subPrefix + " " + mainPrefix + " §r<" + playerUsername + "> " + playerMessage)));
                 try {
-                    WebSocketService.send_dict(String.format("{\"Mode\": \"PlayerChatEvent\", \"player\": \"%s\", \"message\": \"%s\", \"server\": \"%s\"}", playerUsername, playerMessage, subPrefix));
+                    if(BT.player_personality.getBooleanValue(playerUsername, true))
+                        WebSocketService.send_dict(String.format("{\"Mode\": \"PlayerChatEvent\", \"player\": \"%s\", \"message\": \"%s\", \"server\": \"%s\"}", playerUsername, playerMessage, subPrefix));
                 } catch (Exception exception) {
                     BT.logger.error(exception.toString());
                     BT.logger.warn(String.format("{\"Mode\": \"PlayerChatEvent\", \"player\": \"%s\", \"message\": \"%s\", \"server\": \"%s\"}", playerUsername, playerMessage, subPrefix));

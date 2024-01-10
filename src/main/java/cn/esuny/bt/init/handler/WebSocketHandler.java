@@ -18,10 +18,38 @@ public class WebSocketHandler {
         LoadConfig loadConfig = new LoadConfig();
         Map<String, Object> configServerList = loadConfig.getConfigServerList();
         JSONObject user = new JSONObject();
-        BT.proxyServer.getAllServers().forEach(registeredServer -> {
-            user.put(configServerList.get(registeredServer.getServerInfo().getName()).toString(), registeredServer.getPlayersConnected());
+        user.put("Mode", "PlayerListEvent");
+        user.put("group", json.get("group"));
+        user.put("PlayerList", new JSONArray());
+        BT.proxyServer.getAllPlayers().forEach(player -> {
+            BT.logger.error(String.valueOf(player.getModInfo()));
+            if (configServerList.getOrDefault(player.getCurrentServer().get().getServer().getServerInfo().getName(), null) == null) {
+                user.getJSONObject("PlayerList").put(player.getUsername(), player.getCurrentServer().get().getServer().getServerInfo().getName());
+            } else {
+                user.getJSONObject("PlayerList").put(player.getUsername(), configServerList.get(player.getCurrentServer().get().getServer().getServerInfo().getName()));
+            }
         });
+//        BT.logger.error(user.toJSONString());
+//        BT.proxyServer.getAllServers().forEach(registeredServer -> {
+//            BT.logger.info(registeredServer.getServerInfo().getName());
+//            try{
+//            BT.logger.info(registeredServer.getPlayersConnected().);
+//            }catch (Exception e){
+//                BT.logger.error(e.toString());
+//            }
+////            user.put(configServerList.get(registeredServer.getServerInfo().getName()).toString(), registeredServer.getPlayersConnected());
+//        });
         WebSocketService.send_dict(user.toJSONString());
+    }
+
+    public static void AllPlayerTitle(JSONObject json) {
+        BT.proxyServer.getAllPlayers().forEach(player -> {
+            player.showTitle(
+                    Title.title(
+                            Component.text(json.getString(json.getString("title"))),
+                            Component.text(json.getString(json.getString("subtitle"))
+                            )));
+        });
     }
 
     public static void BotChatEvent(JSONObject json) {
@@ -29,11 +57,6 @@ public class WebSocketHandler {
         Map<String, Object> configServerList = loadConfig.getConfigServerList();
         BT.proxyServer.getAllPlayers().forEach(player -> {
             player.sendMessage(Component.text(json.getString("message")));
-        });
-        BT.proxyServer.getAllPlayers().forEach(player -> {
-            if (Objects.equals(player.getUsername(), json.getString("")))
-                for(int i = 1; i <= 1000; i++)
-                    player.showTitle(Title.title(Component.text("jbfengfan干活！"), Component.text("jbfengfan干活！")));
         });
     }
 }

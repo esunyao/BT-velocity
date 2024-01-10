@@ -57,6 +57,8 @@ public class PlayerLoginServerListener {
 //            });
 //            player.sendMessage(Component.text("§8[§2+§8]§r " + playerUsername + " §2通过群组加入了§r " + subPrefix));
                 WebSocketService.send_dict(String.format("{\"Mode\": \"PlayerJoinEvent\", \"player\": \"%s\", \"server\": \"%s\"}", playerUsername, subPrefix));
+                if(!BT.player_personality.getBooleanValue(playerUsername, true))
+                    player.sendMessage(Component.text("§a§l您以关闭聊天转发，q群可能无法接收到您发送的信息，使用/bt chat on开启此功能"));
             }
             // 如果配置文件的服务器包含玩家连接服务器的名称相同并且上个服务器名称不为空并且上个服务器名称在配置文件中
             if (configServerList.containsKey(serverName) && previousServerName != null && configServerList.containsKey(previousServerName)) {

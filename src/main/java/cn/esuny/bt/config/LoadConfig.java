@@ -60,4 +60,6 @@ public class LoadConfig implements Serializable {
         File configFile = new File("./plugins/BTAPI/config.toml");
         return new Toml().read(configFile);
     }
+
+
 }

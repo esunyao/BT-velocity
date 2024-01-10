@@ -205,6 +205,7 @@ public class Draft_6455 extends Draft {
         for (IExtension inputExtension : inputExtensions) {
             if (inputExtension.getClass().equals(DefaultExtension.class)) {
                 hasDefault = true;
+                break;
             }
         }
         knownExtensions.addAll(inputExtensions);

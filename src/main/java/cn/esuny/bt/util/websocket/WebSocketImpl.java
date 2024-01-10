@@ -471,7 +471,6 @@ public class WebSocketImpl implements WebSocket {
             }
             readyState = ReadyState.CLOSING;
             tmpHandshakeBytes = null;
-            return;
         }
     }
 

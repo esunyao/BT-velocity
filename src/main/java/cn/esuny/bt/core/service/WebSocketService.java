@@ -49,8 +49,8 @@ public class WebSocketService {
                 try {
                     Handler.getClass().getMethod(json.getString("Mode"), JSONObject.class).invoke(Handler.getClass().getConstructor(), json);
                 } catch (NoSuchMethodException ignored) {
-                    return;
                 } catch (IllegalAccessException | InvocationTargetException e) {
+                    LOGGER.error(e.toString());
                     LOGGER.error("¨„ ¡ìe²ÎÊý´íÎó ¡ì6©¬©¥¨T¡î");
                 } catch (Exception e) {
                     LOGGER.error("¨„ ¡ìeÎ´Öª´íÎó ¡ì6©¬©¥¨T¡î");
