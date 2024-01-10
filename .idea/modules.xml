@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/BT-velocity.main.iml" filepath="$PROJECT_DIR$/.idea/modules/BT-velocity.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/BT-velocity.test.iml" filepath="$PROJECT_DIR$/.idea/modules/BT-velocity.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/cn.esuny.BT-velocity.test.iml" filepath="$PROJECT_DIR$/.idea/modules/cn.esuny.BT-velocity.test.iml" />
     </modules>
   </component>
 </project>
