@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$/src/main/java/cn" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/Initialization.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/core/service/WebSocketService.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/listener/PlayerChatListener.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/listener/PlayerDisconnectListener.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/listener/PlayerLoginServerListener.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/util/BasicUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/util/JSONFormat.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/cn/esuny/bt/util/MinecraftColorCodeUtil.java" charset="GBK" />
+    <file url="file://$PROJECT_DIR$/src/main/java/resources/config.toml" charset="GBK" />
+    <file url="PROJECT" charset="GBK" />
+  </component>
+</project>

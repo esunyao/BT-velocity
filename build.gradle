@@ -1,0 +1,108 @@
+buildscript {
+    repositories {
+        gradlePluginPortal()
+    }
+    dependencies {
+        classpath 'com.github.johnrengelman:shadow:8.1.1'
+    }
+}
+
+plugins {
+    id 'java'
+    id 'eclipse'
+    id "org.jetbrains.gradle.plugin.idea-ext" version "1.0.1"
+    id "com.github.johnrengelman.shadow" version "8.1.1"
+}
+
+apply plugin: 'com.github.johnrengelman.shadow'
+apply plugin: 'java'
+
+
+group = 'cn.esuny'
+version = '2.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "papermc-repo"
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven{name="papermc"
+        url="https://repo.papermc.io/repository/maven-public/"}
+}
+
+shadowJar {
+    manifest.attributes.put("Implementation-Version", archiveVersion)
+    manifest.attributes.put("Main-Class", "com.alibaba.fastjson2")
+    archiveClassifier.set("Velocity-${new Date().format("yyyy-MM-dd'-'HH.mm.ss")}")
+}
+
+dependencies {
+    implementation 'com.velocitypowered:velocity-api:3.1.1'
+    annotationProcessor "org.projectlombok:lombok:1.18.24"
+    compileOnly "com.alibaba:fastjson:2.0.19"
+//    shadowCommon("com.alibaba:fastjson:2.0.19")
+
+    compileOnly "org.projectlombok:lombok:1.18.24"
+    compileOnly "com.moandjiezana.toml:toml4j:0.7.1"
+    compileOnly "com.alibaba:fastjson:2.0.19"
+    annotationProcessor 'com.velocitypowered:velocity-api:3.1.1'
+}
+
+//shadowJar {
+////    dependsOn(shadowJar)
+////    input.set(shadowJar.archivePath)
+////    inputs.setMetaClass(shadowJar.path)
+//    include '*.jar'
+//    archiveClassifier.set("Velocity-${new Date().format("yyyy-MM-dd'-'HH.mm.ss")}")
+//}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs = ["src/main/resources"]
+        }
+    }
+}
+
+java {
+    // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
+    // if it is present.
+    // If you remove this line, sources will not be generated.
+    withSourcesJar()
+}
+
+def targetJavaVersion = 11
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+def templateSource = file('src/main/templates')
+def templateDest = layout.buildDirectory.dir('generated/sources/templates')
+def generateTemplates = tasks.register('generateTemplates', Copy) { task ->
+    def props = [
+            'version': project.version
+    ]
+    task.inputs.properties props
+
+    task.from templateSource
+    task.into templateDest
+    task.expand props
+}
+
+//sourceSets.main.java.srcDir(generateTemplates.map { it.outputs })
+
+rootProject.idea.project.settings.taskTriggers.afterSync generateTemplates
+project.eclipse.synchronizationTasks(generateTemplates)
+
