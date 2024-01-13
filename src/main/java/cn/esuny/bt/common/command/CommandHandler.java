@@ -88,7 +88,7 @@ public class CommandHandler {
 
     public void off(Audience audience) {
         BT.wbservice.setStatus(false);
-        if (WebSocketService.client.isOpen()){
+        if (WebSocketService.client.isOpen()) {
             WebSocketService.client.close();
         }
         audience.sendMessage(Components.ofChildren(
@@ -165,6 +165,26 @@ public class CommandHandler {
                     space(),
                     text("您发送的内容和q群内的内容将不会被转发或看到", GREEN)
             ));
+        }
+    }
+
+    public void chat_status(Audience audience) {
+        help(audience);
+        if (audience instanceof Player) {
+            Player player = (Player) audience;
+            String playerName = player.getUsername();
+            if (BT.player_personality.getBooleanValue(playerName, true))
+                audience.sendMessage(Components.ofChildren(
+                        Component.text("bt"),
+                        space(),
+                        text("当前你的聊天信息会被转发，输入/bt chat off关闭转发", GREEN)
+                ));
+            else
+                audience.sendMessage(Components.ofChildren(
+                        Component.text("bt"),
+                        space(),
+                        text("当前你的聊天信息不会被转发，输入/bt chat on来开启转发", RED)
+                ));
         }
     }
 

@@ -20,9 +20,8 @@ public class WebSocketHandler {
         JSONObject user = new JSONObject();
         user.put("Mode", "PlayerListEvent");
         user.put("group", json.get("group"));
-        user.put("PlayerList", new JSONArray());
+        user.put("PlayerList", new JSONObject());
         BT.proxyServer.getAllPlayers().forEach(player -> {
-            BT.logger.error(String.valueOf(player.getModInfo()));
             if (configServerList.getOrDefault(player.getCurrentServer().get().getServer().getServerInfo().getName(), null) == null) {
                 user.getJSONObject("PlayerList").put(player.getUsername(), player.getCurrentServer().get().getServer().getServerInfo().getName());
             } else {

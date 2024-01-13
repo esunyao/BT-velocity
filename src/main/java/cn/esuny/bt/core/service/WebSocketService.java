@@ -46,6 +46,9 @@ public class WebSocketService {
                     client.send(JSONObject.toJSONString(JSONObject.parseObject(format("{\"STATUS\":\"CHECKING\", \"name\":\"%s\", \"key\":\"%s\"}", loadConfig.getClient(), loadConfig.getUuid()))));
                     return;
                 }
+                if(json.getString("Mode").equals("GetPlayerListEvent"))
+//                    WebSocketHandler.GetPlayerListEvent(json);
+//                Handler.getClass().getMethod(json.getString("Mode"), JSONObject.class).invoke(Handler.getClass().getConstructor(), json);
                 try {
                     Handler.getClass().getMethod(json.getString("Mode"), JSONObject.class).invoke(Handler.getClass().getConstructor(), json);
                 } catch (NoSuchMethodException ignored) {

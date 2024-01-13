@@ -71,7 +71,7 @@ public class BT {
         this.commandManager.register(this.commandManager.metaBuilder("bt").build(), new BrigadierCommand(
                 LiteralArgumentBuilder.<CommandSource>literal("bt")
                         .executes(new WrappingExecutor(handler::help))
-                        .then(LiteralArgumentBuilder.<CommandSource>literal("chat").requires(source -> source.hasPermission("bt.player")).executes(new WrappingExecutor(handler::help))
+                        .then(LiteralArgumentBuilder.<CommandSource>literal("chat").requires(source -> source.hasPermission("bt.player")).executes(new WrappingExecutor(handler::chat_status))
                                 .then(LiteralArgumentBuilder.<CommandSource>literal("on").requires(source -> source.hasPermission("bt.player")).executes(new WrappingExecutor(handler::chat_on)))
                                 .then(LiteralArgumentBuilder.<CommandSource>literal("off").requires(source -> source.hasPermission("bt.player")).executes(new WrappingExecutor(handler::chat_off))))
                         .then(LiteralArgumentBuilder.<CommandSource>literal("reload").requires(source -> source.hasPermission("bt.admin")).executes(new WrappingExecutor(handler::reload)))
